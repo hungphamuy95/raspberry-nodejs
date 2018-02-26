@@ -42,7 +42,7 @@ module.exports = (app, app2)=>{
                     const _payload = {
                         payload: user.payload
                     };
-                    const token = jwt.sign(_payload, app2.get('superSecret'), {expiresIn:'300'});
+                    const token = jwt.sign(_payload, app2.get('superSecret'), {expiresIn:"1h"});
                     res.json({
                         success:true, message:"Enjoy your token: " + token
                     })

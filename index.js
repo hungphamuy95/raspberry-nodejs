@@ -8,7 +8,7 @@ const jwt = require('jsonwebtoken');
 const config = require('./config');
 const User = require('./app/models/users');
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 6969;
 mongoose.connect(config.localUrl);
 
 app.use(bodyParser.urlencoded({extended:false}));

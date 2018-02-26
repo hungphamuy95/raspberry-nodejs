@@ -10,7 +10,6 @@ const User = require('./app/models/users');
 
 const port = process.env.PORT || 8080;
 mongoose.connect(config.localUrl);
-app.set('superSecret', config.secret);
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
@@ -19,7 +18,7 @@ app.use(morgan('dev'));
 
 const apiRouters= express.Router();
 
-require('./app/controllers/userController')(apiRouters);
+require('./app/controllers/userController')(apiRouters, app.set('superSecret', config.secret));
 
 app.use('/api',apiRouters);
 app.listen(port);

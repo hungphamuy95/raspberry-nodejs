@@ -4,10 +4,11 @@ const _app = express();
 const User = require('./../models/users');
 const datetime = require('node-datetime');
 const md5hash = require('./../common/crypto');
+const config = require('./../../config');
 
 const dt= datetime.create();
 const formmated= dt.format('Y-m-d H:M:S');
-module.exports = (app)=>{
+module.exports = (app, app2)=>{
     app.post('/setup', (req, res)=>{
         let nick = new User({
             name: req.body.name,
@@ -41,7 +42,7 @@ module.exports = (app)=>{
                     const _payload = {
                         payload: user.payload
                     };
-                    const token = jwt.sign(_payload, app.get('superSecret'), {expiresIn:'300'});
+                    const token = jwt.sign(_payload, app2.get('superSecret'), {expiresIn:'300'});
                     res.json({
                         success:true, message:"Enjoy your token: " + token
                     })

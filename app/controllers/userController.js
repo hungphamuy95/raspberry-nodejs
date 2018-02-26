@@ -33,7 +33,7 @@ module.exports = (app)=>{
             if(!user) {
                 res.json({success:true, message: 'Authiencated faild, user not found'});
             }else if(user){
-                if(user.password != req.body.password){
+                if(user.password != md5hash(req.body.password)){
                     res.json({
                         success: false, message: 'Authiencated faild, wrong password'
                     });
@@ -71,6 +71,6 @@ module.exports = (app)=>{
     });
 
     app.post('/updateuser/:id',(req,res)=>{
-        User.updateOne
+        
     });
 }

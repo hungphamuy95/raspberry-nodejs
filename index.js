@@ -26,7 +26,7 @@ app.use('/api',apiRouters);
 app.use(iprequest.mw());
 app.use((req, res)=>{
     const ip = req.ip;
-    console.log(ip);
+    console.log("địa chỉ ip của request: "+ip);
 })
 app.listen(port);
 console.log("chạy thành cmn công ở: " + port);

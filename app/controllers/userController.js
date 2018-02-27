@@ -1,6 +1,5 @@
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const _app = express();
 const User = require('./../models/users');
 const datetime = require('node-datetime');
 const md5hash = require('./../common/crypto');

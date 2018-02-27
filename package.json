@@ -17,6 +17,8 @@
     "morgan": "^1.9.0",
     "node-datetime": "^2.0.6",
     "nodemon": "^1.14.11",
-    "mongoose": "4.10.8"
+    "mongoose": "4.10.8",
+    "puppeteer": "^1.1.1",
+    "request-ip": "^2.0.2"
   }
 }

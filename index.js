@@ -20,13 +20,10 @@ app.use(morgan('dev'));
 
 const apiRouters= express.Router();
 
+require('./app/controllers/theardController')(apiRouters);
 require('./app/controllers/userController')(apiRouters, app.set('superSecret', config.secret));
 
+
 app.use('/api',apiRouters);
-app.use(iprequest.mw());
-app.use((req, res)=>{
-    const ip = req.ip;
-    console.log("địa chỉ ip của request: "+ip);
-})
 app.listen(port);
 console.log("chạy thành cmn công ở: " + port);

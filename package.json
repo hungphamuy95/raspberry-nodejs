@@ -19,6 +19,7 @@
     "nodemon": "^1.14.11",
     "mongoose": "4.10.8",
     "puppeteer": "^1.1.1",
-    "request-ip": "^2.0.2"
+    "request-ip": "^2.0.2",
+    "cors": "^2.8.4"
   }
 }

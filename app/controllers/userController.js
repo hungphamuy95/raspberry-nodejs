@@ -4,6 +4,7 @@ const User = require('./../models/users');
 const datetime = require('node-datetime');
 const md5hash = require('./../common/crypto');
 const config = require('./../../config');
+const athiencation = require('./../common/jwtAuth');
 
 const dt= datetime.create();
 const formmated= dt.format('Y-m-d H:M:S');
@@ -50,27 +51,25 @@ module.exports = (app, app2)=>{
         })
     });
 
-    app.use(require('./../common/jwtAuth'));
-
-    app.get('/', (req, res)=>{
+    app.get('/', (req, res, next)=>{athiencation(req, res, next)}, (req, res)=>{
         res.send('Hello ExpressJS!');
     });
 
-    app.get('/users', (req, res)=>{
+    app.get('/users', (req, res, next)=>{athiencation(req, res, next)}, (req, res)=>{
         User.find({}, (err, user)=>{
             if(err) throw err;
             res.json(user);
         });
     });
 
-    app.get('/user/:id', (req, res)=>{
+    app.get('/user/:id', (req, res, next)=>{athiencation(req, res, next)}, (req, res)=>{
         User.findById(req.params.id,(err, userdetail)=>{
             if(err) throw err;
             res.json(userdetail);
         });
     });
 
-    app.post('/updateuser/:id',(req,res)=>{
+    app.post('/updateuser/:id',(req, res, next)=>{athiencation(req, res, next)}, (req,res)=>{
         
     });
 }

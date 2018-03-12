@@ -51,7 +51,7 @@ module.exports = (app, app2)=>{
         })
     });
 
-    app.get('/', (req, res, next)=>{athiencation(req, res, next)}, (req, res)=>{
+    app.get('/', (req, res)=>{
         res.send('Hello ExpressJS!');
     });
 

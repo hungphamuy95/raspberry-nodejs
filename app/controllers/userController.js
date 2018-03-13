@@ -1,4 +1,3 @@
-const express = require('express');
 const jwt = require('jsonwebtoken');
 const User = require('./../models/users');
 const datetime = require('node-datetime');
@@ -9,12 +8,13 @@ const athiencation = require('./../common/jwtAuth');
 const dt= datetime.create();
 const formmated= dt.format('Y-m-d H:M:S');
 module.exports = (app, app2)=>{
-    app.post('/setup', (req, res)=>{
+    app.post('/setupuser', (req, res)=>{
         let nick = new User({
             name: req.body.name,
             password: md5hash(req.body.password),
             payload: true,
-            createAt: formmated
+            createAt: formmated,
+            status: true
         });
 
         nick.save((err)=>{
@@ -30,13 +30,12 @@ module.exports = (app, app2)=>{
             name: req.body.name
         }, (err, user)=>{
             if(err) throw err;
-
             if(!user) {
-                res.json({success:true, message: 'Authiencated faild, user not found'});
+                res.json({success:false, message: 'Người dùng không tồn tại'});
             }else if(user){
                 if(user.password != md5hash(req.body.password)){
                     res.json({
-                        success: false, message: 'Authiencated faild, wrong password'
+                        success: false, message: 'Sai mật khẩu'
                     });
                 }else{
                     const _payload = {
@@ -55,7 +54,7 @@ module.exports = (app, app2)=>{
         res.send('Hello ExpressJS!');
     });
 
-    app.get('/users', (req, res, next)=>{athiencation(req, res, next)}, (req, res)=>{
+    app.get('/users', (req, res)=>{
         User.find({}, (err, user)=>{
             if(err) throw err;
             res.json(user);
@@ -69,7 +68,16 @@ module.exports = (app, app2)=>{
         });
     });
 
-    app.post('/updateuser/:id',(req, res, next)=>{athiencation(req, res, next)}, (req,res)=>{
-        
+    app.put('/updateuser/:id', (req,res)=>{
+        User.findByIdAndUpdate(req.params.id, {$set:{
+            name: req.body.name,
+            password: md5hash(req.body.password),
+            updateAt: formmated
+        }},{new:true},
+    (err, useresult)=>{
+        if(err) throw err;
+        res.json(useresult);
+    }
+    );
     });
 }

@@ -12,11 +12,17 @@ module.exports = (app)=>{
         })
     });
 
-    app.post('/creategroupnews', (req, res)=>{
-        let creategropu = new groupnews({
+    app.post('/creategroupnews', (req, res, next)=>{authiecation(req, res, next) }, (req, res)=>{
+        let creategroup = new groupnews({
             name: req.body.name,
             status: req.body.status,
+            createuser: req.decoded.username,
+            createdate: formatted
+        });
+        creategroup.save((err)=>{
+            if(err) throw err;
             
+            res.json({success: true});
         })
     })
 }

@@ -23,6 +23,8 @@ const apiRouters= express.Router();
 require('./app/controllers/theardController')(apiRouters);
 require('./app/controllers/userController')(apiRouters, app.set('superSecret', config.secret));
 require('./app/controllers/roleController')(apiRouters);
+require('./app/controllers/groupnewsController')(apiRouters);
+require('./app/controllers/newsDraffController')(apiRouters);
 
 app.use('/api',apiRouters);
 app.listen(port);

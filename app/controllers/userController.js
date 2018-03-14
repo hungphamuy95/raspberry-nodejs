@@ -39,11 +39,13 @@ module.exports = (app, app2)=>{
                     });
                 }else{
                     const _payload = {
-                        payload: user.payload
+                        payload: user.payload,
+                        username:user.name
                     };
+                    console.log(_payload);
                     const token = jwt.sign(_payload, app2.get('superSecret'), {expiresIn:"1h"});
                     res.json({
-                        success:true, message:"Enjoy your token: " + token
+                        success:true, message: token
                     })
                 }
             }
@@ -54,7 +56,7 @@ module.exports = (app, app2)=>{
         res.send('Hello ExpressJS!');
     });
 
-    app.get('/users', (req, res)=>{
+    app.get('/users', (req, res, next)=>{athiencation(req, res, next)}, (req, res)=>{
         User.find({}, (err, user)=>{
             if(err) throw err;
             res.json(user);
@@ -68,7 +70,7 @@ module.exports = (app, app2)=>{
         });
     });
 
-    app.put('/updateuser/:id', (req,res)=>{
+    app.put('/updateuser/:id', (req, res, next)=>{athiencation(req, res, next)}, (req,res)=>{
         User.findByIdAndUpdate(req.params.id, {$set:{
             name: req.body.name,
             password: md5hash(req.body.password),

@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 const groupnewschema = new schema({
-    name: String, 
+    name: {type:String, required:true}, 
     status: Boolean,
     createuser: String, 
     createdate: String,
